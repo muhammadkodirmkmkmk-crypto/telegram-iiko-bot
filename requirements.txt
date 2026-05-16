@@ -1,6 +1,7 @@
-python-telegram-bot[job-queue]==22.7
-anthropic==0.102.0
-Flask==3.1.3
-requests==2.34.2
-beautifulsoup4==4.14.3
-lxml==6.1.0
+anthropic
+requests
+apscheduler
+pytz
+python-telegram-bot
+beautifulsoup4
+lxml

@@ -77,25 +77,14 @@ pending: dict[str, dict] = {}
 last_bot_answers: dict[str, str] = {}
 
 
-def make_group_keyboard(chat_id: int, message_id: int) -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup([
-        [
-            InlineKeyboardButton("✏️ Редактировать", callback_data=f"grp_edit:{chat_id}:{message_id}"),
-            InlineKeyboardButton("🔍 Углубить ответ", callback_data=f"grp_deep:{chat_id}:{message_id}"),
-        ]
-    ])
-
-
 async def send_to_group(bot, chat_id: int, reply_to_id: int, text: str) -> None:
-    """Send answer to group with inline buttons. Falls back to plain text if HTML fails."""
-    keyboard = make_group_keyboard(chat_id, reply_to_id)
+    """Send answer to group without buttons. Falls back to plain text if HTML fails."""
     try:
         await bot.send_message(
             chat_id=chat_id,
             text=text,
             reply_to_message_id=reply_to_id,
             parse_mode="HTML",
-            reply_markup=keyboard,
         )
         logger.info("Ответ отправлен в группу %s (HTML, reply_to=%s)", chat_id, reply_to_id)
     except Exception as html_err:
@@ -105,7 +94,6 @@ async def send_to_group(bot, chat_id: int, reply_to_id: int, text: str) -> None:
             chat_id=chat_id,
             text=plain,
             reply_to_message_id=reply_to_id,
-            reply_markup=keyboard,
         )
         logger.info("Ответ отправлен в группу %s (plain text, reply_to=%s)", chat_id, reply_to_id)
 

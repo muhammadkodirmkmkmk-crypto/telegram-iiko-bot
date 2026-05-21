@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
-YOUR_PERSONAL_ID = int(os.environ["YOUR_PERSONAL_ID"])
+YOUR_PERSONAL_ID = int(os.environ.get("YOUR_PERSONAL_ID", os.environ.get("TELEGRAM_CHAT_ID", "0")))
 UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY", "")
 PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY", "")
 CHANNEL_USERNAME = "@zetta_uzbekistan"
